@@ -10,7 +10,7 @@ This project provides a collection of converted DuckyScript payloads for Arduino
 
 ## Features
 
-- 51 converted DuckyScript payloads for macOS targets
+- 76 converted DuckyScript payloads for macOS targets
 - Compatible with Arduino boards (Pro Micro, Leonardo, Due) and ESP32-S3
 - Emulate keyboard and mouse actions via USB
 - Easily customize and modify payloads for specific requirements
@@ -117,6 +117,42 @@ This project provides a collection of converted DuckyScript payloads for Arduino
 |---------|-------------|
 | `multi-open-apps.ino` | Open multiple applications |
 | `live-chart-crypto.ino` | Crypto price display |
+
+### Credentials (5 payloads)
+| Payload | Description |
+|---------|-------------|
+| `wifi-passwords.ino` | Extract saved WiFi passwords |
+| `browser-cookies.ino` | Export Safari/Chrome cookies |
+| `clipboard-stealer.ino` | Capture clipboard contents |
+| `keychain-dump.ino` | Dump keychain passwords |
+| `ssh-keys.ino` | Copy SSH keys from ~/.ssh |
+
+### Exfiltration (5 payloads)
+| Payload | Description |
+|---------|-------------|
+| `screenshot-capture.ino` | Screenshot to Desktop |
+| `desktop-exfil.ino` | Compress Desktop folder |
+| `browser-history.ino` | Export Safari/Chrome history |
+| `notes-exfil.ino` | Copy Notes app data |
+| `screenshare-toggle.ino` | Enable macOS screen sharing |
+
+### Persistence (5 payloads)
+| Payload | Description |
+|---------|-------------|
+| `launch-agent.ino` | Create LaunchAgent plist |
+| `cron-backdoor.ino` | Add reverse shell to crontab |
+| `login-item.ino` | Add app to login items |
+| `bash-profile-inject.ino` | Inject to ~/.bash_profile |
+| `wifi-autoconnect.ino` | Add rogue AP to WiFi profiles |
+
+### Network Attacks (5 payloads)
+| Payload | Description |
+|---------|-------------|
+| `wifi-deauth.ino` | WiFi deauth attack |
+| `arp-spoof.ino` | ARP poisoning |
+| `dns-spoof.ino` | DNS host file manipulation |
+| `port-knocker.ino` | Port knock sequence |
+| `evil-twin.ino` | Create fake WiFi AP
 
 ## Usage
 
