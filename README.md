@@ -1,207 +1,83 @@
 # arduino-duckyscripts
 
-# Arduino DuckyScript Payloads
+Modernized macOS HID payload collection for **creator-style demos** and reversible automation scenes.
 
-Convert DuckyScript payloads to Arduino/ESP32 code for microcontrollers with HID support.
+## Project Status
 
-## Introduction
+- Active track: `macos/creator-pack` (maintained)
+- Legacy track: existing category folders under `macos/` (deprecated/historical)
 
-This project provides a collection of converted DuckyScript payloads for Arduino and ESP32 microcontrollers with Human Interface Device (HID) support. DuckyScript is a scripting language used for keystroke injection, originally associated with the USB Rubber Ducky. By converting payloads to Arduino/ESP32 code, you can emulate keyboard and mouse input using affordable hardware.
+Read [SAFETY.md](./SAFETY.md) before using anything in this repository.
 
-## Features
+## Creator Reboot (Primary)
 
-- 76 converted DuckyScript payloads for macOS targets
-- Compatible with Arduino boards (Pro Micro, Leonardo, Due) and ESP32-S3
-- Emulate keyboard and mouse actions via USB
-- Easily customize and modify payloads for specific requirements
+The active pack is designed for viral short-form clips (IG/TikTok/Reels):
 
-## Supported Hardware
+- camera-first sequences
+- dramatic but reversible behavior
+- no persistence, credential theft, or exfiltration
+- 60-90 second story pacing
 
-### Arduino HID Boards
-- Arduino Pro Micro (ATmega32U4)
-- Arduino Leonardo
-- Arduino Due
+Creator scripts live in [`macos/creator-pack`](./macos/creator-pack).
 
-### ESP32-S3
-- Requires ESP32 board definitions with TinyUSB support
-- Native USB HID capability
+### Creator Pack Payloads
+
+| Payload | Description | Runtime | UNDO |
+|---|---|---:|---|
+| `cinematic-fake-breach.ino` | Fake terminal breach sequence with visual reveal | ~75s | `pkill -f reel_ >/dev/null 2>&1 || true` |
+| `glitch-desktop-takeover.ino` | Dark/light flicker + app choreography montage | ~80s | `osascript -e 'tell application "System Events" to set dark mode of appearance preferences to false'; killall Terminal` |
+| `matrix-rain-studio.ino` | Matrix-like green rain b-roll generator | ~70s | `pkill -f reel_matrix >/dev/null 2>&1 || true` |
+| `notification-storm-lite.ino` | Controlled notification burst for reaction clips | ~65s | `defaults delete com.apple.notificationcenterui doNotDisturb >/dev/null 2>&1 || true` |
+| `autotype-drama-scene.ino` | Writes and opens dramatic monologue scene text | ~85s | `rm -f ~/Desktop/reel_drama_scene.txt` |
+| `beat-sync-terminal.ino` | Beat-aligned terminal pulses (8/16/32 bars) | ~70s | `pkill -f reel_beat >/dev/null 2>&1 || true` |
+| `app-chaos-montage.ino` | Multi-app rapid montage for "possessed Mac" feel | ~78s | `killall Calculator Chess Music Preview Safari Terminal >/dev/null 2>&1 || true` |
+| `ascii-chaos-console.ino` | Dense ASCII/symbol rain with fake status bursts | ~88s | `pkill -f reel_ascii >/dev/null 2>&1 || true` |
+| `reveal-and-reset.ino` | Finale script that resets and reveals simulation | ~60s | Included in script |
+
+## Shared API (Dual-Board)
+
+`macos/creator-pack/creator_input.h` provides shared helpers used by all creator scripts:
+
+- `openSpotlight()`
+- `openTerminal()`
+- `typeCmd()`
+- `enter()`
+- `waitPreset(WAIT_SLOW | WAIT_REEL | WAIT_TURBO)`
+- `panicResetHint()`
+
+Runtime targets:
+
+- Arduino HID boards (`Keyboard.h`)
+- ESP32-S3 TinyUSB (`USBHIDKeyboard.h`)
+
+## Legacy/Deprecated Folders
+
+The following folders are retained for historical reference and are not part of the maintained creator track:
+
+- `macos/credentials`
+- `macos/exfiltration`
+- `macos/network-attacks`
+- `macos/persistence`
+- `macos/recon`
+- `macos/execution`
+- `macos/obscurity`
+- `macos/goodusb`
+
+These legacy payloads may include stale assumptions, broken compatibility, or unsafe patterns.
 
 ## Getting Started
 
-### Prerequisites
-
-- Arduino IDE or PlatformIO installed on your system
-- Supported microcontroller board with HID support
-
-### Installation
-
-1. Clone this repository to your local machine:
-
-   ```bash
-   git clone https://github.com/dkyazzentwatwa/arduino-duckyscripts.git
-   ```
-
-2. Open the project directory in your preferred code editor or Arduino IDE.
-
-### ESP32-S3 Setup
-
-1. Install ESP32 board definitions in Arduino IDE
-2. Select your ESP32-S3 board from Tools > Board
-3. Enable USB CDC on boot: Tools > USB CDC on Boot > Enabled
-4. Use the TinyUSB library for HID keyboard emulation
-
-## Payload Inventory
-
-### Recon (18 payloads)
-| Payload | Description |
-|---------|-------------|
-| `networkrecon.ino` | Network reconnaissance |
-| `networkreconplus.ino` | Extended network recon |
-| `public-ip-finder.ino` | Retrieve public IP address |
-| `public-ip-to-iphone.ino` | Send public IP to iPhone |
-| `arp-table-to-iphone.ino` | Export ARP table to iPhone |
-| `nmap-scan-to-iphone.ino` | Run nmap and export to iPhone |
-| `portscan.ino` | Basic port scanning |
-| `reverse-shell.ino` | Establish reverse shell |
-| `infinite-reverse-shell.ino` | Persistent reverse shell |
-| `socat-shell.ino` | Socat-based shell |
-| `voice-logger.ino` | Audio recording via voice memos |
-| `web-scraper.ino` | Web data extraction |
-| `sysnet-info.ino` | System network info |
-| `macos-system-log-to-iphone.ino` | Export system logs |
-| `copy-all-jpeg.ino` | Copy JPEG files from system |
-| `sentinelstrike.ino` | Security testing payload |
-
-### Obscurity (13 payloads)
-| Payload | Description |
-|---------|-------------|
-| `mac-cloak.ino` | Hide macOS network activity |
-| `mac-cloak-reverse.ino` | Restore network visibility |
-| `mac-netghost.ino` | Network ghosting |
-| `mac-netghost-restore.ino` | Restore network state |
-| `darknet-angel.ino` | Tor-based connectivity |
-| `darknet-restore.ino` | Restore from darknet mode |
-| `silent-server.ino` | Stealth server setup |
-| `tcp-randomizer.ino` | Randomize TCP parameters |
-| `shadowsocks-proxy-ninja.ino` | Shadowsocks proxy |
-| `shadowsocks-reverse.ino` | Reverse Shadowsocks |
-| `netwirk-fragmentation.ino` | Network fragmentation |
-| `network-padding-fury.ino` | Traffic padding |
-| `file-encryption.ino` | File encryption |
-
-### Execution (18 payloads)
-| Payload | Description |
-|---------|-------------|
-| `copypasta.ino` | Text injection |
-| `cookies-2-dropbox.ino` | Export cookies to Dropbox |
-| `icloud-to-dropbox.ino` | iCloud data to Dropbox |
-| `imessage-2-dropbox.ino` | iMessage export |
-| `docs-desktop-to-dropbox.ino` | Document exfiltration |
-| `dropbox-2-desktop-boom.ino` | Dropbox to desktop sync |
-| `doomsday-desktop-delete.ino` | Desktop cleanup |
-| `delete-pasta.ino` | Recursive deletion |
-| `file-load-tester.ino` | File stress testing |
-| `load-tester-mega-folder-create.ino` | Folder creation stress test |
-| `eapol-handshake-2-dropbox.ino` | WPA handshake capture |
-| `macos-website-redirect.ino` | DNS redirect |
-| `darkstorm-bruteforce-ip.ino` | Brute force testing |
-| `remote-shell.ino` | Remote shell execution |
-| `neversleep.ino` | Prevent sleep mode |
-| `mouse_jiggler.ino` | Mouse movement simulation |
-| `textedit-basic.ino` | TextEdit automation |
-| `system-disruption-loop.ino` | System stress |
-| `bluetooth-on.ino` | Enable Bluetooth |
-
-### GoodUSB (2 payloads)
-| Payload | Description |
-|---------|-------------|
-| `multi-open-apps.ino` | Open multiple applications |
-| `live-chart-crypto.ino` | Crypto price display |
-
-### Credentials (5 payloads)
-| Payload | Description |
-|---------|-------------|
-| `wifi-passwords.ino` | Extract saved WiFi passwords |
-| `browser-cookies.ino` | Export Safari/Chrome cookies |
-| `clipboard-stealer.ino` | Capture clipboard contents |
-| `keychain-dump.ino` | Dump keychain passwords |
-| `ssh-keys.ino` | Copy SSH keys from ~/.ssh |
-
-### Exfiltration (5 payloads)
-| Payload | Description |
-|---------|-------------|
-| `screenshot-capture.ino` | Screenshot to Desktop |
-| `desktop-exfil.ino` | Compress Desktop folder |
-| `browser-history.ino` | Export Safari/Chrome history |
-| `notes-exfil.ino` | Copy Notes app data |
-| `screenshare-toggle.ino` | Enable macOS screen sharing |
-
-### Persistence (5 payloads)
-| Payload | Description |
-|---------|-------------|
-| `launch-agent.ino` | Create LaunchAgent plist |
-| `cron-backdoor.ino` | Add reverse shell to crontab |
-| `login-item.ino` | Add app to login items |
-| `bash-profile-inject.ino` | Inject to ~/.bash_profile |
-| `wifi-autoconnect.ino` | Add rogue AP to WiFi profiles |
-
-### Network Attacks (5 payloads)
-| Payload | Description |
-|---------|-------------|
-| `wifi-deauth.ino` | WiFi deauth attack |
-| `arp-spoof.ino` | ARP poisoning |
-| `dns-spoof.ino` | DNS host file manipulation |
-| `port-knocker.ino` | Port knock sequence |
-| `evil-twin.ino` | Create fake WiFi AP
-
-## Usage
-
-Open any `.ino` file in the Arduino IDE:
-
-```cpp
-#include "HIDKeyboard.h"
-
-HIDKeyboard keyboard;
-
-void setup() {
-  delay(5000); // Wait for target to recognize keyboard
-  keyboard.begin();
-}
-
-void loop() {
-  keyboard.println("Hello World");
-  delay(1000);
-}
-```
-
-For ESP32-S3, use TinyUSB's `USBHIDKeyboard`:
-
-```cpp
-#include "USBHIDKeyboard.h"
-
-USBHIDKeyboard keyboard;
-
-void setup() {
-  delay(3000);
-  keyboard.begin();
-}
-
-void loop() {
-  keyboard.println("Hello from ESP32-S3!");
-  delay(1000);
-}
-```
+1. Open a creator payload from `macos/creator-pack` in Arduino IDE.
+2. Select your board/runtime:
+   - Arduino HID board (Pro Micro/Leonardo/Due style)
+   - ESP32-S3 with TinyUSB HID support
+3. Upload and run on a test Mac you own.
+4. Keep the listed `UNDO` command ready before recording.
 
 ## Contributing
 
-Contributions are welcome! If you have ideas, suggestions, or improvements, feel free to open an issue or submit a pull request.
+Contributions should target the creator pack and follow the reversible contract in `SAFETY.md`.
 
 ## License
 
-This project is licensed under the Apache 2.0 License - see the LICENSE file for details.
-
-## Acknowledgments
-
-- Arduino platform and HID libraries
-- USB Rubber Ducky project
-- ESP32 TinyUSB community
+Apache 2.0. See `LICENSE`.
